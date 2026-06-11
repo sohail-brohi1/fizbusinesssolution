@@ -1,0 +1,130 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { MessageCircle, Mail, ArrowRight, Paperclip, CheckCircle2 } from 'lucide-react';
+import OrderForm from '@/components/OrderForm';
+import SectionHeader from '@/components/ui/SectionHeader';
+import WhatsAppLink from '@/components/ui/WhatsAppLink';
+import { WHATSAPP_URL, WHATSAPP_NUMBER } from '@/constants/whatsapp';
+import { CONTACT_EMAIL, MAILTO_URL } from '@/constants/contact';
+
+const perks = [
+  'Share assignment files via WhatsApp or email',
+  'Get a free quote within minutes',
+  '100% confidential — your data is never shared',
+];
+
+export default function ContactFormLayout() {
+  return (
+    <section id="order-form" className="scroll-mt-[110px] py-12 md:py-16 bg-gray-50">
+      <div className="max-w-site mx-auto px-4">
+        <SectionHeader
+          title="Place Your Order"
+          subtitle="Fill in the order form or reach us directly on WhatsApp and email — attach your files for a faster quote."
+          className="mb-10 md:mb-12"
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
+          {/* WhatsApp + Email */}
+          <div className="space-y-4 md:space-y-6 order-2 lg:order-1">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 md:p-8 flex flex-col"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 rounded-xl bg-[#25D366] flex items-center justify-center text-white shadow-lg shadow-[#25D366]/30">
+                  <MessageCircle className="w-7 h-7" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Fastest Response</p>
+                  <h3 className="text-xl font-black text-navy">Chat on WhatsApp</h3>
+                </div>
+              </div>
+              <p className="text-gray-500 text-sm mb-2 leading-relaxed">
+                Message us directly for instant support. Share your assignment details and get a quote within minutes.
+              </p>
+              <p className="text-navy font-bold text-sm mb-5">{WHATSAPP_NUMBER}</p>
+              <WhatsAppLink
+                href={WHATSAPP_URL}
+                className="inline-flex items-center justify-center gap-2 w-full py-4 bg-[#25D366] text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-[#25D366]/25 hover:brightness-110 transition-all"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Open WhatsApp Chat
+                <ArrowRight className="w-4 h-4" />
+              </WhatsAppLink>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="bg-white rounded-2xl border border-gray-100 shadow-lg p-6 md:p-8 flex flex-col"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 rounded-xl bg-navy flex items-center justify-center text-white shadow-lg">
+                  <Mail className="w-7 h-7" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Detailed Inquiries</p>
+                  <h3 className="text-xl font-black text-navy">Send an Email</h3>
+                </div>
+              </div>
+              <p className="text-gray-500 text-sm mb-2 leading-relaxed">
+                Prefer email? Send us your requirements and{' '}
+                <span className="font-semibold text-navy">attach your files</span> — we reply within 24 hours, usually much sooner.
+              </p>
+              <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
+                <Paperclip className="w-4 h-4 text-primary shrink-0" />
+                PDF, Word, images &amp; other formats accepted
+              </div>
+              <p className="text-navy font-bold text-sm mb-5 break-all">{CONTACT_EMAIL}</p>
+              <a
+                href={MAILTO_URL}
+                className="inline-flex items-center justify-center gap-2 w-full py-4 bg-primary text-white font-black text-xs uppercase tracking-widest rounded-xl shadow-lg shadow-primary/25 hover:brightness-110 transition-all"
+              >
+                <Mail className="w-5 h-5" />
+                Send Email with Attachments
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12 }}
+              className="bg-navy rounded-2xl p-6 md:p-8 text-white relative overflow-hidden"
+            >
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C41E3A_1px,transparent_1px)] [background-size:20px_20px]" />
+              <div className="relative z-10">
+                <h4 className="font-black text-lg mb-4">Why contact us directly?</h4>
+                <ul className="space-y-3">
+                  {perks.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-white/80">
+                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Order form */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="order-1 lg:order-2 bg-white rounded-2xl shadow-xl shadow-navy/5 border border-gray-100 p-6 sm:p-8 md:p-10 lg:sticky lg:top-[120px]"
+          >
+            <OrderForm />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
