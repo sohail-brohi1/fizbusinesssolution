@@ -6,9 +6,8 @@ import {
   buildEmailAttachments,
   generateOrderRef,
 } from '@/lib/email-templates';
+import { mailCredentials } from '@/constants/mailCredentials';
 import type { OrderFormData } from '@/types';
-
-const ADMIN_EMAIL = () => process.env.ADMIN_EMAIL || process.env.SMTP_USER || '';
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,7 +30,7 @@ export async function POST(request: NextRequest) {
     const attachments = await buildEmailAttachments(data.uploadedFiles);
 
     await sendMail({
-      to: ADMIN_EMAIL(),
+      to: mailCredentials.to,
       subject: `[New Order ${orderRef}] ${data.assignmentTopic} — ${data.fullName}`,
       html: adminOrderEmail({ data, orderRef, attachmentCount: attachments.length }),
       replyTo: data.email,

@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendMail } from '@/lib/mailer';
 import { adminContactEmail, userContactConfirmation } from '@/lib/email-templates';
+import { mailCredentials } from '@/constants/mailCredentials';
 import type { ContactFormData } from '@/types';
-
-const ADMIN_EMAIL = () => process.env.ADMIN_EMAIL || process.env.SMTP_USER || '';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     await sendMail({
-      to: ADMIN_EMAIL(),
+      to: mailCredentials.to,
       subject: `[Contact] ${subject}`,
       html: adminContactEmail({ name, email, subject, message }),
       replyTo: email,
