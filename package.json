@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
+    "build:hostinger": "next build && node scripts/prepare-hostinger.mjs",
     "start": "next start --port 3000",
+    "start:hostinger": "node hostinger-deploy/server.js",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
